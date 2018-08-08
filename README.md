@@ -6,11 +6,52 @@ A plugin for Kibana that translates field values into a text labels using code l
 
 ## Install
 
+Releases of the plugin can be found at [https://github.com/TeskaLabs/kibana-codelist-vis/releases](https://github.com/TeskaLabs/kibana-codelist-vis/releases)
+
+To install the plugin, copy url of a particular release's zip file and run the following command from the Kibana install path:
+
 ```
-bin/kibana-plugin install https://github.com/TeskaLabs/kibana-codelist-vis/releases/download/v18.03.02/kibana_codelist_vis-18.03.02.zip
+bin/kibana-plugin install [RELEASE_URL]
+```
+
+**Example**:
+
+```
+bin/kibana-plugin install https://github.com/TeskaLabs/kibana-codelist-vis/releases/download/v18.08.01k6.3.3/kibana_codelist_vis-18.03.03.zip
 ```
 
 ## Create a lookup
+
+
+### Lookup index template
+
+First create an index template for lookup documents in Elasticsearch.
+
+```
+curl --request PUT \
+  --url 'http://localhost:9200/_template/x-lff-lookup' \
+  --header 'Content-Type: application/json' \
+  --data '{ 
+  "index_patterns" : [".x-lff-lookup"],
+  "mappings": {
+    "lookup": {
+      "properties": {
+        "fieldType": {"type": "keyword"},
+        "lookupType": {"type": "text"},
+        "map": {
+          "properties": {
+            "key": {"type": "keyword"},
+            "value": {"type": "text"}
+          }
+        }
+      }
+    }
+  }
+}
+'
+```
+
+### Lookup
 
 In this example we will create a lookup with the unique identifier `language`.
 
@@ -18,22 +59,18 @@ After you run the following command (assuming Elasticsearch is listening at `loc
 
 ```
 curl --request PUT \
-  --url 'http://localhost:9200/.lookup/doc/x-lff-lookup:language' \
+  --url 'http://localhost:9200/.x-lff-lookup/lookup/x-lff-lookup:language' \
   --header 'Content-Type: application/json' \
   --data '{
-  "type": "x-lff-lookup",
-  "config": {
-    "lookupType": "Language",
-    "fieldType": "string",
-    "map": {
-      "en": "English",
-      "de": "German",
-      "ru": "Russian"
-    }
-  }
+  "lookupType": "Language",
+  "fieldType": ["string"],
+  "map": [
+    {"key":"en", "value": "English"},
+    {"key":"de", "value": "German"}
+    {"key":"cs", "value": "Czech"},
+  ]
 }'
 ```
-
 
 ## Develop
 
