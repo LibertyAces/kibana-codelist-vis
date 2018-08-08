@@ -1,5 +1,6 @@
 export default function getLookupFieldFormatClass(FieldFormat) {
 	return class LookupFieldFormat extends FieldFormat {
+
 		constructor(params) {
 			super(params);
 			this.map = {};
@@ -12,11 +13,18 @@ export default function getLookupFieldFormatClass(FieldFormat) {
 				}
 			}
 		}
+
+		/*
+		 * Converts given value to a text value from this.map
+		 * this.map = {
+		 *   "1": {"value":"One"},
+		 *   "2": {"value":"Two"},
+		 * }
+		 */
 		convert(value) {
-			var mapVal=this.map[value.toString()];
-			if(!mapVal) mapVal = value;
-			else mapVal=mapVal.label;
-			return (mapVal ? mapVal+" ["+value+"]" : value);
+			var s_val = value.toString();
+			var m_val = this.map[s_val];
+			return m_val ? m_val.value+" ["+s_val+"]" : s_val;
 		}
 	}
 }

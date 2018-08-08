@@ -6,11 +6,13 @@ function createFieldFormat(fformat, FieldFormat) {
 
 	class FFormat extends getLookupFieldFormatClass(FieldFormat) {
 		static id = fformat._id.replace("x-lff-lookup:", "");
-		static title = fformat._source.config.lookupType;
-		static fieldType = fformat._source.config.fieldType;
+		static title = fformat._source.lookupType;
+		static fieldType = fformat._source.fieldType;
 		constructor(params) {
 			super(params);
-			this.map = JSON.parse(fformat._source.config.map);
+			for(var i=0; i<fformat._source.map.length; i++) {
+				this.map[fformat._source.map[i].key] = fformat._source.map[i]
+			}
 		}
 	}
 	return FFormat;

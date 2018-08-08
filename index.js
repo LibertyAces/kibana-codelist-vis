@@ -30,16 +30,7 @@ export default function (kibana) {
 						var data = server.plugins.elasticsearch.getCluster('data');
 						// https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html
 						data.callWithRequest(req, 'search', {
-							index: '.lookup',
-							size: 1000,
-							from: 0,
-							body: {
-								query: {
-									match: {
-										type: 'x-lff-lookup'
-									}
-								}
-							}
+							index: '.x-lff-lookup',
 						}).then(function (response) {
 							reply(response);
 						}, function (response) {
