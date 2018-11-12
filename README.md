@@ -17,7 +17,7 @@ bin/kibana-plugin install [RELEASE_URL]
 **Example**:
 
 ```
-bin/kibana-plugin install https://github.com/TeskaLabs/kibana-codelist-vis/releases/download/v18.08.01k6.3.3/kibana_codelist_vis-18.08.01.zip
+bin/kibana-plugin install https://github.com/TeskaLabs/kibana-codelist-vis/releases/download/v18.08.02k6.4.2/kibana_codelist_vis-18.08.02.zip
 ```
 
 ## Create a lookup
@@ -127,7 +127,7 @@ yarn start --oss
 Build release into folder `./build/`
 
 ```
-yarn run build
+yarn build
 ```
 
 ## Kibana Contributing Guide
