@@ -50,7 +50,7 @@ export default function (kibana) {
 									reply(response);
 								});
 							}
-						)
+						).catch (reply ({"hits":{"hits":[]}}))
 					}
 			});
 		}
