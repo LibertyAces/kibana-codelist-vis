@@ -87,8 +87,8 @@ This project has been built with npm package `generator-kibana-plugin` which is 
 - `nvm` - Node version manager (https://github.com/creationix/nvm)
 
 ```
-nvm install v8.11.3
-nvm use v8.11.3
+nvm install v8.11.4
+nvm use v8.11.4
 ```
 
 - `yarn` - a Node package manager
